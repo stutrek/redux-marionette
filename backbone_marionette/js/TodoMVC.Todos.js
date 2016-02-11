@@ -18,6 +18,11 @@ var TodoMVC = TodoMVC || {};
 			if (this.isNew()) {
 				this.set('created', Date.now());
 			}
+			Backbone.Model.prototype.initialize.call(this);
+		},
+
+		createAction: function (eventName, event) {
+			console.log('creating', eventName, event);
 		},
 
 		toggle: function () {

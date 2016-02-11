@@ -5,6 +5,8 @@ import Header from '../components/Header'
 import MainSection from '../components/MainSection'
 import * as TodoActions from '../actions'
 
+import {backboneDispatch} from '../../backbone-redux';
+
 class App extends Component {
   render() {
     const { todos, actions } = this.props
@@ -29,6 +31,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
+  backboneDispatch(dispatch);
   return {
     actions: bindActionCreators(TodoActions, dispatch)
   }
