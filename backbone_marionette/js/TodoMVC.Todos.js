@@ -9,15 +9,12 @@ var TodoMVC = TodoMVC || {};
 	// ----------
 	TodoMVC.Todo = Backbone.Model.extend({
 		defaults: {
-			title: '',
+			text: '',
 			completed: false,
-			created: 0
+			id: 0
 		},
 
 		initialize: function () {
-			if (this.isNew()) {
-				this.set('created', Date.now());
-			}
 			Backbone.Model.prototype.initialize.call(this);
 		},
 

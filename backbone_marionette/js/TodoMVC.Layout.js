@@ -50,8 +50,12 @@ var TodoMVC = TodoMVC || {};
 			var todoText = this.ui.input.val().trim();
 
 			if (e.which === ENTER_KEY && todoText) {
+				var ids = this.collection.pluck('id');
+				ids.push(0);
+				var maxId = Math.max.apply(null, ids);
 				this.collection.create({
-					title: todoText
+					text: todoText,
+					id: maxId + 1
 				});
 				this.ui.input.val('');
 			}

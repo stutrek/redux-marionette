@@ -43,10 +43,10 @@
 		<script type="text/html" id="template-todoItemView">
 			<div class="view">
 				<input class="toggle" type="checkbox" <% if (completed) { %>checked<% } %>>
-				<label><%- title %></label>
+				<label><%- text %></label>
 				<button class="destroy"></button>
 			</div>
-			<input class="edit" value="<%- title %>">
+			<input class="edit" value="<%- text %>">
 		</script>
 		<script type="text/html" id="template-todoListCompositeView">
 			<input id="toggle-all" type="checkbox">

@@ -58,7 +58,7 @@ var TodoMVC = TodoMVC || {};
 		onEditFocusout: function () {
 			var todoText = this.ui.edit.val().trim();
 			if (todoText) {
-				this.model.set('title', todoText).save();
+				this.model.set('text', todoText).save();
 				this.$el.removeClass('editing');
 			} else {
 				this.destroy();
@@ -75,7 +75,7 @@ var TodoMVC = TodoMVC || {};
 			}
 
 			if (e.which === ESC_KEY) {
-				this.ui.edit.val(this.model.get('title'));
+				this.ui.edit.val(this.model.get('text'));
 				this.$el.removeClass('editing');
 			}
 		}

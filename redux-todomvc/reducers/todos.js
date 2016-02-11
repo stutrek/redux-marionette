@@ -13,7 +13,7 @@ export default function todos(state = initialState, action) {
     case ADD_TODO:
       return [
         {
-          id: state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
+          id: action.id ? action.id : state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
           completed: false,
           text: action.text
         },
