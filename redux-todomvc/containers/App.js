@@ -31,7 +31,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  backboneDispatch(dispatch);
+  backboneDispatch(dispatch, window.Backbone, window._);
   return {
     actions: bindActionCreators(TodoActions, dispatch)
   }

@@ -5,7 +5,7 @@ import {backboneMiddleware} from '../../backbone-redux.js';
 
 export default function configureStore(initialState) {
   const store = compose(
-    applyMiddleware(backboneMiddleware)
+    applyMiddleware(backboneMiddleware(window.Backbone, window.Backbone.Marionette, window._))
   )(createStore)(rootReducer, initialState)
 
   if (module.hot) {

@@ -1,0 +1,25 @@
+{
+  "name": "redux-marionette",
+  "version": "1.0.0",
+  "description": "Connect Redux and Marionette",
+  "main": "marionette-redux.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stutrek/backbone-redux-connector.git"
+  },
+  "keywords": [
+    "marionette",
+    "redux"
+  ],
+  "author": "Stu Kabakoff <sakabako@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stutrek/backbone-redux-connector/issues"
+  },
+  "homepage": "https://github.com/stutrek/backbone-redux-connector#readme",
+  "dependencies": {
+  }
+}

@@ -1,44 +1,48 @@
-var Backbone = window.Backbone;
-var Marionette = window.Backbone.Marionette
-var _ = window._;
+var vent;
 
-var vent = _.extend({}, Backbone.Events);
+function backboneMiddleware (Backbone, Marionette, _) {
+	return function () {
+		vent = vent || _.extend({}, Backbone.Events);
 
-const backboneMiddleware = function () {
-	return function (next) {
-		return function (action) {
-			if (vent.reduxDispatchInProgress || vent.reduxActionInProgress) {
-				next(action);
+		['ItemView', 'CollectionView', 'CompositeView', 'Layout', 'LayoutView'].forEach(function (viewType) {
+			if (!Marionette[viewType]) {
+				// the name Layout was changed to LayoutView
 				return;
 			}
-			vent.reduxActionInProgress = true;
-			vent.trigger('action', action);
-			next(action);
-			vent.reduxActionInProgress = false;
-		};
-	};
-};
+			var oldViewInitialize = Marionette[viewType].prototype.initialize;
+			Marionette[viewType].prototype.initialize = function () {
+				this.listenTo(vent, 'action', function (action) {
+					if (this.model && this.model.handleAction && this.model.__lastAction !== action) {
+						this.model.handleAction(action);
+						this.model.__lastAction = action;
+					}
+					if (this.collection && this.collection.handleAction && this.collection.__lastAction !== action) {
+						this.collection.handleAction(action);
+						this.collection.__lastAction = action;
+					}
+				});
 
-['ItemView', 'CollectionView', 'CompositeView'].forEach(function (viewType) {
-	var oldViewInitialize = Marionette[viewType].prototype.initialize;
-	Marionette[viewType].prototype.initialize = function () {
-		this.listenTo(vent, 'action', function (action) {
-			if (this.model && this.model.handleAction && this.model.__lastAction !== action) {
-				this.model.handleAction(action);
-				this.model.__lastAction = action;
-			}
-			if (this.collection && this.collection.handleAction && this.collection.__lastAction !== action) {
-				this.collection.handleAction(action);
-				this.collection.__lastAction = action;
-			}
+				oldViewInitialize.apply(this, arguments);
+			};
 		});
 
-		oldViewInitialize.apply(this, arguments);
-	};
-});
+		return function (next) {
+			return function (action) {
+				if (vent.reduxDispatchInProgress || vent.reduxActionInProgress) {
+					next(action);
+					return;
+				}
+				vent.reduxActionInProgress = true;
+				vent.trigger('action', action);
+				next(action);
+				vent.reduxActionInProgress = false;
+			};
+		};
+	}
+}
 
-
-function backboneDispatch (dispatch) {
+function backboneDispatch (dispatch, Backbone, _) {
+	vent = vent || _.extend({}, Backbone.Events);
 	function wrapInitialize(type) {
 		var oldInitialize = Backbone[type].prototype.initialize;
 		Backbone[type].prototype.initialize = function () {
