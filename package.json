@@ -1,6 +1,6 @@
 {
   "name": "redux-marionette",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Connect Redux and Marionette",
   "main": "marionette-redux.js",
   "scripts": {
@@ -20,6 +20,5 @@
     "url": "https://github.com/stutrek/backbone-redux-connector/issues"
   },
   "homepage": "https://github.com/stutrek/backbone-redux-connector#readme",
-  "dependencies": {
-  }
+  "dependencies": {}
 }
