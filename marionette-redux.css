@@ -31,3 +31,14 @@ body {
 .filters, #filters {
 	display: none;
 }
+
+.shameful {
+	position: absolute;
+	bottom: 10px;
+	width: 100%;
+	font-style: italic;
+	text-align: center;
+}
+.shameful a {
+	color: black;
+}
