@@ -6,43 +6,50 @@ var vent = _.extend({}, Backbone.Events);
 
 const backboneMiddleware = () => {
 	return (next) => (action) => {
+		if (vent.reduxDispatchInProgress || vent.reduxActionInProgress) {
+			next(action);
+			return;
+		}
+		vent.reduxActionInProgress = true;
 		vent.trigger('action', action);
-		return next(action);
+		next(action);
+		vent.reduxActionInProgress = false;
 	};
 };
 
-var oldViewInitialize = Marionette.ItemView.prototype.initialize;
+['ItemView', 'CollectionView', 'CompositeView'].forEach(function (viewType) {
+	var oldViewInitialize = Marionette[viewType].prototype.initialize;
+	Marionette[viewType].prototype.initialize = function () {
+		this.listenTo(vent, 'action', function (action) {
+			if (this.model && this.model.handleAction && this.model.__lastAction !== action) {
+				this.model.handleAction(action);
+				this.model.__lastAction = action;
+			}
+			if (this.collection && this.collection.handleAction && this.collection.__lastAction !== action) {
+				this.collection.handleAction(action);
+				this.collection.__lastAction = action;
+			}
+		});
 
-Marionette.ItemView.prototype.initialize = function () {
-	this.listenTo(vent, 'action', function (action) {
-		if (this.model && this.model.handleAction) {
-			this.reduxActionInProgress = true;
-			this.model.handleAction(action);
-			this.reduxActionInProgress = false;
-		}
-		if (this.collection && this.collection.handleAction) {
-			this.collection.handleAction(action);
-		}
-	});
-
-	oldViewInitialize.apply(this, arguments);
-};
+		oldViewInitialize.apply(this, arguments);
+	};
+});
 
 
 function backboneDispatch (dispatch) {
 	function wrapInitialize(type) {
 		var oldInitialize = Backbone[type].prototype.initialize;
 		Backbone[type].prototype.initialize = function () {
-			console.log('init');
 			this.on('all', function (eventType, event) {
-				console.log('all!', eventType);
-				if (this.reduxActionInProgress) {
+				if (vent.reduxDispatchInProgress || vent.reduxActionInProgress) {
 					return;
 				}
 				if (this.createAction) {
 					var action = this.createAction(eventType, event);
 					if (action) {
+						vent.reduxDispatchInProgress = true;
 						dispatch(action);
+						vent.reduxDispatchInProgress = false;
 					}
 				}
 			}.bind(this));
@@ -53,6 +60,7 @@ function backboneDispatch (dispatch) {
 	wrapInitialize('Model');
 	wrapInitialize('Collection');
 }
+
 module.exports = {
 	backboneMiddleware: backboneMiddleware,
 	backboneDispatch: backboneDispatch

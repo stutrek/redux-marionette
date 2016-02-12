@@ -109,6 +109,7 @@ var TodoMVC = TodoMVC || {};
 
 		initialize: function () {
 			this.listenTo(filterChannel.request('filterState'), 'change:filter', this.render, this);
+			Backbone.Marionette.CompositeView.prototype.initialize.call(this);
 		},
 
 		filter: function (child) {
