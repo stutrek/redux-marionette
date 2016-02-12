@@ -1,0 +1,9 @@
+.DS_Store
+*.swp
+*.swo
+.grunt/
+node_modules
+_SpecRunner.html
+.idea
+npm-debug.log
+bower_components
