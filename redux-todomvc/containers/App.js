@@ -5,7 +5,7 @@ import Header from '../components/Header'
 import MainSection from '../components/MainSection'
 import * as TodoActions from '../actions'
 
-import {backboneDispatch} from '../../backbone-redux';
+import {marionetteDispatch} from '../../marionette-redux';
 
 class App extends Component {
   render() {
@@ -31,7 +31,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  backboneDispatch(dispatch, window.Backbone, window._);
+  marionetteDispatch(dispatch, window.Backbone, window._);
   return {
     actions: bindActionCreators(TodoActions, dispatch)
   }

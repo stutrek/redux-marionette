@@ -1,6 +1,6 @@
 var vent;
 
-function backboneMiddleware (Backbone, Marionette, _) {
+function marionetteMiddleware (Backbone, Marionette, _) {
 	return function () {
 		vent = vent || _.extend({}, Backbone.Events);
 
@@ -41,7 +41,7 @@ function backboneMiddleware (Backbone, Marionette, _) {
 	}
 }
 
-function backboneDispatch (dispatch, Backbone, _) {
+function marionetteDispatch (dispatch, Backbone, _) {
 	vent = vent || _.extend({}, Backbone.Events);
 	function wrapInitialize(type) {
 		var oldInitialize = Backbone[type].prototype.initialize;
@@ -68,6 +68,6 @@ function backboneDispatch (dispatch, Backbone, _) {
 }
 
 module.exports = {
-	backboneMiddleware: backboneMiddleware,
-	backboneDispatch: backboneDispatch
+	marionetteMiddleware: marionetteMiddleware,
+	marionetteDispatch: marionetteDispatch
 };
