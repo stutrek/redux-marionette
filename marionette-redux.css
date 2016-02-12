@@ -1,0 +1,33 @@
+body {
+	max-width: none !important;
+}
+.marionette-container, .redux-container {
+	width: 500px;
+	position: absolute !important;
+	top: 350px;
+}
+
+.marionette-container {
+	left: 52%;
+}
+.redux-container {
+	right: 52%;
+}
+
+.description {
+	width: 800px;
+	font-size: 16px;
+	margin: auto;
+	color: black;
+}
+
+.description h1 {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-weight: 100;
+	font-size: 100px;
+	text-align: center;
+}
+
+.filters, #filters {
+	display: none;
+}

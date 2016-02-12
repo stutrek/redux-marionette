@@ -2,20 +2,27 @@
 <html lang="en" data-framework="marionettejs">
 	<head>
 		<meta charset="utf-8">
-		<title>Marionette • TodoMVC</title>
-		<link rel="stylesheet" href="./backbone_marionette/node_modules/todomvc-app-css/index.css">
-		<link rel="stylesheet" href="./backbone_marionette/node_modules/todomvc-common/base.css">
-		<link rel="stylesheet" href="./backbone_marionette/css/app.css">
+		<title>Marionette-Redux</title>
+		<link rel="stylesheet" href="./marionette_todomvc/node_modules/todomvc-app-css/index.css">
+		<link rel="stylesheet" href="./marionette_todomvc/node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="./marionette_todomvc/css/app.css">
+		<link rel="stylesheet" href="./marionette-redux.css">
 	</head>
 	<body>
+		<div class="description">
+			<h1>Marionette-Redux</h1>
+			<p>This is a simple connection between Marionette and redux. It's designed to ease a transition to redux, but could be used to bring elements of the one way data flow to Marionette.</p>
+			<p>To use it add <code>model.handleAction</code> and <code>model.createAction</code> to the models (and collections) that you want integrated into redux and add the Backbone Middleware and Dispatch to your redux store.</p>
+			<p>Play with the todo lists below to see it in action.</p>
+		</div>
 		<!-- marionette -->
-		<section id="todoapp" style="position: absolute; left: 0; top: 0; width: 50%;">
+		<section id="todoapp" class="marionette-container">
 			<header id="header"></header>
 			<section id="main"></section>
 			<footer id="footer"></footer>
 		</section>
 		<!-- redux -->
-		<div class="todoapp" id="redux-root" style="position: absolute; left: 50%; top: 0; width: 50%;">
+		<div class="todoapp redux-container" id="redux-root">
 		</div>
 
 
@@ -37,7 +44,7 @@
 			<button id="clear-completed" <% if (!completedCount) { %>class="hidden"<% } %>>Clear completed</button>
 		</script>
 		<script type="text/html" id="template-header">
-			<h1>todos</h1>
+			<h1>Marionette</h1>
 			<input id="new-todo" placeholder="What needs to be done?" autofocus>
 		</script>
 		<script type="text/html" id="template-todoItemView">
@@ -54,22 +61,22 @@
 			<ul id="todo-list"></ul>
 		</script>
 		<!-- vendor libraries -->
-		<script src="./backbone_marionette/node_modules/todomvc-common/base.js"></script>
-		<script src="./backbone_marionette/node_modules/jquery/dist/jquery.js"></script>
-		<script src="./backbone_marionette/node_modules/underscore/underscore.js"></script>
-		<script src="./backbone_marionette/node_modules/backbone/backbone.js"></script>
-		<script src="./backbone_marionette/node_modules/backbone.localstorage/backbone.localStorage.js"></script>
-		<script src="./backbone_marionette/node_modules/backbone.marionette/lib/backbone.marionette.js"></script>
-		<script src="./backbone_marionette/node_modules/backbone.radio/build/backbone.radio.js"></script>
+		<script src="./marionette_todomvc/node_modules/todomvc-common/base.js"></script>
+		<script src="./marionette_todomvc/node_modules/jquery/dist/jquery.js"></script>
+		<script src="./marionette_todomvc/node_modules/underscore/underscore.js"></script>
+		<script src="./marionette_todomvc/node_modules/backbone/backbone.js"></script>
+		<script src="./marionette_todomvc/node_modules/backbone.localstorage/backbone.localStorage.js"></script>
+		<script src="./marionette_todomvc/node_modules/backbone.marionette/lib/backbone.marionette.js"></script>
+		<script src="./marionette_todomvc/node_modules/backbone.radio/build/backbone.radio.js"></script>
     	<script src="./redux-todomvc/dist/bundle.js"></script>
 		<!-- application -->
-		<script src="./backbone_marionette/js/TodoMVC.Application.js"></script>
-		<script src="./backbone_marionette/js/TodoMVC.Todos.js"></script>
-		<script src="./backbone_marionette/js/TodoMVC.Layout.js"></script>
-		<script src="./backbone_marionette/js/TodoMVC.TodoList.Views.js"></script>
-		<script src="./backbone_marionette/js/TodoMVC.Router.js"></script>
-		<script src="./backbone_marionette/js/TodoMVC.FilterState.js"></script>
-		<script src="./backbone_marionette/js/TodoMVC.js"></script>
+		<script src="./marionette_todomvc/js/TodoMVC.Application.js"></script>
+		<script src="./marionette_todomvc/js/TodoMVC.Todos.js"></script>
+		<script src="./marionette_todomvc/js/TodoMVC.Layout.js"></script>
+		<script src="./marionette_todomvc/js/TodoMVC.TodoList.Views.js"></script>
+		<script src="./marionette_todomvc/js/TodoMVC.Router.js"></script>
+		<script src="./marionette_todomvc/js/TodoMVC.FilterState.js"></script>
+		<script src="./marionette_todomvc/js/TodoMVC.js"></script>
 		<!-- redux -->
 	</body>
 </html>

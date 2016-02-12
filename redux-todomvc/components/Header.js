@@ -11,7 +11,7 @@ class Header extends Component {
   render() {
     return (
       <header className="header">
-          <h1>todos</h1>
+          <h1>Redux</h1>
           <TodoTextInput newTodo
                          onSave={this.handleSave.bind(this)}
                          placeholder="What needs to be done?" />

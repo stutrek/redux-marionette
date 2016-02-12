@@ -4,16 +4,18 @@ var _ = window._;
 
 var vent = _.extend({}, Backbone.Events);
 
-const backboneMiddleware = () => {
-	return (next) => (action) => {
-		if (vent.reduxDispatchInProgress || vent.reduxActionInProgress) {
+const backboneMiddleware = function () {
+	return function (next) {
+		return function (action) {
+			if (vent.reduxDispatchInProgress || vent.reduxActionInProgress) {
+				next(action);
+				return;
+			}
+			vent.reduxActionInProgress = true;
+			vent.trigger('action', action);
 			next(action);
-			return;
-		}
-		vent.reduxActionInProgress = true;
-		vent.trigger('action', action);
-		next(action);
-		vent.reduxActionInProgress = false;
+			vent.reduxActionInProgress = false;
+		};
 	};
 };
 

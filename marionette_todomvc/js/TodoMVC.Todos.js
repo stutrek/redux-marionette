@@ -85,11 +85,25 @@ var TodoMVC = TodoMVC || {};
 		handleAction: function (action) {
 			switch (action.type) {
 				case 'ADD_TODO':
+					var id = action.id;
+					if (!id) {
+						var ids = this.pluck('id');
+						ids.push(0);
+						id = Math.max.apply(null, ids) + 1;
+					}
 					this.create({
 						text: action.text,
 						completed: action.completed,
-						id: action.id
+						id: id
 					});
+					break;
+
+				case 'CLEAR_COMPLETED':
+					var completed = this.getCompleted();
+					completed.forEach(function (todo) {
+						todo.destroy();
+					});
+
 			}
 		},
 
