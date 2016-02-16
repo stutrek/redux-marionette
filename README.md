@@ -1,6 +1,6 @@
 # Redux-Marionette
 
-This is a simple connection between Marionette and redux. It's designed to ease a transition to redux, but could be used to bring elements of the one way data flow to Marionette, but the mess you end up with will be yours and yours alone.
+This is a simple connection between Marionette and redux. It's designed to ease a transition to redux, it could be used to bring elements of the one way data flow to Marionette but the mess you end up with will be yours and yours alone.
 
 To use it add `model.handleAction` and `model.createAction` to the models (and collections) that you want integrated into redux and add the Backbone Middleware and Dispatch to redux.
 
@@ -12,29 +12,17 @@ To use it add `model.handleAction` and `model.createAction` to the models (and c
 
 ### In Your Redux
 
-Add this to your dispatch:
+Add this to your store:
 
 ```javascript
-import {marionetteDispatch} from 'marionette-redux';
-
-function mapDispatchToProps(dispatch) {
-  marionetteDispatch(dispatch, window.Backbone, window._);
-  return {
-    actions: bindActionCreators(TodoActions, dispatch)
-  }
-}
-
-```
-
-Add this to your store creator:
-
-```javascript
-import {marionetteMiddleware} from 'marionette-redux';
+import {marionetteMiddleware, marionetteDispatch} from 'marionette-redux';
 
 export default function configureStore(initialState) {
   const store = compose(
     applyMiddleware(marionetteMiddleware(window.Backbone, window.Backbone.Marionette, window._))
   )(createStore)(rootReducer, initialState)
+  
+  marionetteDispatch(store.dispatch, Backbone, _);
 
   return store
 }
