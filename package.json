@@ -1,6 +1,6 @@
 {
   "name": "redux-marionette",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Connect Redux and Marionette",
   "main": "marionette-redux.js",
   "scripts": {
