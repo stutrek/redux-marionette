@@ -1,6 +1,6 @@
 # Redux-Marionette
 
-This is a simple connection between Marionette and redux. It's designed to ease a transition to redux, but could be used to bring elements of the one way data flow to Marionette.
+This is a simple connection between Marionette and redux. It's designed to ease a transition to redux, but could be used to bring elements of the one way data flow to Marionette, but the mess you end up with will be yours and yours alone.
 
 To use it add `model.handleAction` and `model.createAction` to the models (and collections) that you want integrated into redux and add the Backbone Middleware and Dispatch to redux.
 
