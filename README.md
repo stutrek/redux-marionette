@@ -15,7 +15,7 @@ To use it add `model.handleAction` and `model.createAction` to the models (and c
 Add this to your store:
 
 ```javascript
-import {marionetteMiddleware, marionetteDispatch} from 'marionette-redux';
+import {marionetteMiddleware, marionetteDispatch} from 'redux-marionette';
 
 export default function configureStore(initialState) {
   const store = compose(
