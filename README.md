@@ -35,9 +35,22 @@ _note: you have to pass in Backbone, Marionette, and underscore becase we're not
 
 Redux-Marionette binds to the lifecycle of your views, so any model or collection attached to a view will transparently be attached to your reducer and dispatcher then disconnected when the view is removed.
 
+#### For global actions
+
 ```javascript
-// this will work exactly the same way for MrCollection
-var MrModel = Backbone.Model.extend({
+var MyApp = Marionette.Application.extend({
+	handleAction: function (action) {
+		// act on global actions
+	}
+});
+```
+_note: you may also assign `app.handleAction` after your app has been created._
+
+#### For actions that apply to a Model or Collection
+
+```javascript
+// this will work exactly the same way for Collections
+var MyModel = Backbone.Model.extend({
 
 	initialize: function () {
 		// if you're overriding initialize, you must do this.
