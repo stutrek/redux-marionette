@@ -1,2 +1,3 @@
 redux-todomvc/node_modules
 **/*.hot-update.js*
+node_modules

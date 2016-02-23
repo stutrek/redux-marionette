@@ -25,6 +25,18 @@ function marionetteMiddleware (Backbone, Marionette, _) {
 		};
 	});
 
+	var oldAppStart = Marionette.Application.prototype.start;
+	Marionette.Application.prototype.start = function () {
+		this.listenTo(vent, 'action', function (action) {
+			if (this.handleAction && this.__lastAction !== action) {
+				this.handleAction(action);
+				this.__lastAction = action;
+			}
+		});
+
+		oldAppStart.apply(this, arguments);
+	};
+
 	return function () {
 		return function (next) {
 			return function (action) {
