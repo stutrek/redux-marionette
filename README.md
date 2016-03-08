@@ -19,10 +19,10 @@ import {marionetteMiddleware, marionetteDispatch} from 'redux-marionette';
 
 export default function configureStore(initialState) {
   const store = compose(
-    applyMiddleware(marionetteMiddleware(window.Backbone, window.Backbone.Marionette, window._))
+    applyMiddleware(marionetteMiddleware(Backbone, Marionette, _))
   )(createStore)(rootReducer, initialState)
   
-  marionetteDispatch(store.dispatch, Backbone, _);
+  marionetteDispatch(store.dispatch, Backbone, Marionette, _);
 
   return store
 }
@@ -41,6 +41,13 @@ Redux-Marionette binds to the lifecycle of your views, so any model or collectio
 var MyApp = Marionette.Application.extend({
 	handleAction: function (action) {
 		// act on global actions
+	}
+});
+
+myApp.dispatch({
+	type: 'MY_ACTION',
+	meta: {
+		foo: 'bar'
 	}
 });
 ```

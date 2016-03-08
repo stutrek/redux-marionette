@@ -53,7 +53,7 @@ function marionetteMiddleware (Backbone, Marionette, _) {
 	}
 }
 
-function marionetteDispatch (dispatch, Backbone, _) {
+function marionetteDispatch (dispatch, Backbone, Marionette, _) {
 	vent = vent || _.extend({}, Backbone.Events);
 	function wrapInitialize(type) {
 		var oldInitialize = Backbone[type].prototype.initialize;
@@ -74,6 +74,12 @@ function marionetteDispatch (dispatch, Backbone, _) {
 			oldInitialize.apply(this, arguments);
 		}
 	}
+
+	Marionette.Application.prototype.dispatch = function (action) {
+		vent.reduxDispatchInProgress = true;
+		dispatch(action);
+		vent.reduxDispatchInProgress = false;
+	};
 
 	wrapInitialize('Model');
 	wrapInitialize('Collection');
