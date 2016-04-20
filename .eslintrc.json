@@ -7,8 +7,14 @@
 		"commonjs": true,
 		"es6": true
 	},
-	"ecmaFeatures": {
-		"modules": true
+	"parserOptions": {
+		"ecmaFeatures": {
+			"modules": true,
+			"jsx": true
+		},
+		"ecmaVersion": 6,
+		"sourceType": "module",
+		"jsx": true
 	},
 	"rules": {
 		"eqeqeq": 2,
