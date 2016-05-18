@@ -18,20 +18,23 @@ export default class MarionetteComponent extends React.Component {
 
 		reactContainer.appendChild(this.marionetteComponent.el);
 		this.marionetteComponent.triggerMethod('show');
-    }
+	}
 
-    componentWillUnmount () {
+	componentWillUnmount () {
 		if (this.marionetteComponent.close) {
 			this.marionetteComponent.close();
 		} else if (this.marionetteComponent.destory) {
 			this.marionetteComponent.destory()
 		}
-    }
+	}
+
+	componentDidUpdate () {
+		this.componentWillUnmount();
+		this.componentDidMount();
+	}
 
 	render () {
-		return <div
-			{...this.props}
-		/>
+		return <div />
 	}
 
 }
