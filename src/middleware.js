@@ -43,10 +43,10 @@ module.exports = function (vent) {
 						next(action);
 						return;
 					}
-					vent.reduxActionInProgress = true;
+					vent.reduxActionInProgress = action;
 					vent.trigger('action', action);
-					next(action);
 					vent.reduxActionInProgress = false;
+					next(action);
 				};
 			};
 		}

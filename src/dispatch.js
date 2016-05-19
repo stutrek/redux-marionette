@@ -12,9 +12,13 @@ module.exports = function (vent) {
 					if (this.createAction) {
 						var action = this.createAction(eventType, event);
 						if (action) {
-							vent.reduxDispatchInProgress = true;
-							dispatch(action);
-							vent.reduxDispatchInProgress = false;
+							if (action.type.substr(0, 8) === '@@router') {
+								dispatch(action);
+							} else {
+								vent.reduxDispatchInProgress = action;
+								dispatch(action);
+								vent.reduxDispatchInProgress = false;
+							}
 						}
 					}
 				}.bind(this));
@@ -23,9 +27,13 @@ module.exports = function (vent) {
 		}
 
 		Marionette.Application.prototype.dispatch = function (action) {
-			vent.reduxDispatchInProgress = true;
-			dispatch(action);
-			vent.reduxDispatchInProgress = false;
+			if (action.type.substr(0, 8) === '@@router') {
+				dispatch(action);
+			} else {
+				vent.reduxDispatchInProgress = action;
+				dispatch(action);
+				vent.reduxDispatchInProgress = false;
+			}
 		};
 
 		wrapInitialize('Model');
