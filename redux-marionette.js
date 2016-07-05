@@ -13,7 +13,7 @@ function wrapView (MarionetteView, optionsFromProps) {
 			if (optionsFromProps) {
 				var newOptions = optionsFromProps(newProps);
 				if (!_.isEqual(this.marionetteComponent.options, newOptions)) {
-					return true
+					return true;
 				} else {
 					return false;
 				}
