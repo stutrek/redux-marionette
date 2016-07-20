@@ -6,15 +6,13 @@ It consists of two parts: Views and Components that let you put React in Marione
 
 [See it in action](http://stutrek.github.io/redux-marionette/)
 
-## Usage
+[The best way to learn to connect your models may be the tutorial PR](https://github.com/stutrek/redux-marionette/pull/1/files).
 
-[The best way to learn may be the tutorial PR](https://github.com/stutrek/redux-marionette/pull/1/files).
-
-### Putting Marionette inside React Components
+## Putting Marionette inside React Components
 
 A Component is provided that can contain a Marionette view. It will start the View when the Component is rendered and destroy it when the Component is unmounted. There is also a convenience function that can take a view and return a component.
 
-#### The Convenience Function
+### The Convenience Function
 
 This will wrap a view and rerenders it when the values in this.props change.
 
@@ -32,7 +30,7 @@ const wrappedView = wrapView(ViewToWrap, convertOptionsToProps);
 
 _note: it will destroy and recreate the Marionette view, it does not do a simple rerender_
 
-#### Using The Component Directly
+### Using The Component Directly
 
 By using the component directly you can call methods on `this.marionetteComponent` when `this.props` change.
 
@@ -56,12 +54,12 @@ export default class WrappedView extends MarionetteComponent {
 }
 ```
 
-### Putting React inside Marionette Views
+## Putting React inside Marionette Views
 
 Doing this requires that the view be connected to your store. Because this would be importing something (your store) from your app I haven't included it in this package. You can find an example [here](https://gist.github.com/stutrek/650be2f8b40a51318a16a6ad9c716eef).
 
 
-### Connecting Marionette to Redux
+## Connecting Marionette to Redux
 
 Add this to your store:
 
@@ -82,11 +80,11 @@ export default function configureStore(initialState) {
 
 _note: you have to pass in Backbone, Marionette, and underscore becase we're not going to judge your old architecture._
 
-### Dispatching actions from Marionette
+## Dispatching actions from Marionette
 
 Redux-Marionette binds to the lifecycle of your views, so any model or collection attached to a view will transparently be attached to your reducer and dispatcher then disconnected when the view is removed.
 
-#### Directly On The App Object
+### Directly On The App Object
 
 ```javascript
 var MyApp = Marionette.Application.extend({
@@ -104,7 +102,7 @@ myApp.dispatch({
 ```
 _note: you may also assign `app.handleAction` after your app has been created._
 
-#### Specific Models or Collections
+### Connecting Specific Backbone Models or Collections
 
 ```javascript
 // this will work exactly the same way for Collections
@@ -115,6 +113,7 @@ var MyModel = Backbone.Model.extend({
 		Backbone.Model.prototype.initialize.call(this);
 	},
 
+	// this will be called on every Redux action
 	handleAction: function (action) {
 		if (action.id !== this.id) {
 			return;
@@ -126,7 +125,8 @@ var MyModel = Backbone.Model.extend({
 				return;
 		}
 	},
-
+	
+	// this will be called on every event this model triggers
 	createAction: function (eventName) {
 		var action = this.toJSON();
 		switch (eventName) {
