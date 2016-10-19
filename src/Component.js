@@ -23,8 +23,8 @@ export default class MarionetteComponent extends React.Component {
 	componentWillUnmount () {
 		if (this.marionetteComponent.close) {
 			this.marionetteComponent.close();
-		} else if (this.marionetteComponent.destory) {
-			this.marionetteComponent.destory()
+		} else if (this.marionetteComponent.destroy) {
+			this.marionetteComponent.destroy()
 		}
 	}
 
