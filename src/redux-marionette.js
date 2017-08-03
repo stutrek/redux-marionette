@@ -1,6 +1,6 @@
-import middleware from './src/middleware';
-import dispatch from './src/dispatch';
-import MarionetteComponent from './src/Component';
+import middleware from './middleware';
+import dispatch from './dispatch';
+import MarionetteComponent from './Component';
 import _ from 'underscore';
 
 var vent = {}
