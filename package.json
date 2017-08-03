@@ -1,6 +1,6 @@
 {
   "name": "redux-marionette",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Connect Redux and Marionette",
   "main": "dist/redux-marionette.js",
   "files": "dist/*.js",
